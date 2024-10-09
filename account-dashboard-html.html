@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Dashboard - EuroFinance</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .dashboard-section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Euro</span>Finance</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="calculator.html">Mortgage Calculator</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="current"><a href="account-dashboard.html">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Account Dashboard</h2>
+        
+        <div class="dashboard-section">
+            <h3>Account Overview</h3>
+            <table data-cy="account-overview-table">
+                <tr>
+                    <th>Account Type</th>
+                    <th>Account Number</th>
+                    <th>Balance</th>
+                </tr>
+                <tr>
+                    <td>Checking</td>
+                    <td>1234567890</td>
+                    <td>€2,500.00</td>
+                </tr>
+                <tr>
+                    <td>Savings</td>
+                    <td>0987654321</td>
+                    <td>€10,000.00</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>Quick Actions</h3>
+            <div class="form-group">
+                <label for="transfer-from">Transfer From:</label>
+                <select id="transfer-from" data-cy="transfer-from-select">
+                    <option value="checking">Checking (1234567890)</option>
+                    <option value="savings">Savings (0987654321)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transfer-to">Transfer To:</label>
+                <select id="transfer-to" data-cy="transfer-to-select">
+                    <option value="checking">Checking (1234567890)</option>
+                    <option value="savings">Savings (0987654321)</option>
+                    <option value="external">External Account</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transfer-amount">Amount (€):</label>
+                <input type="text" id="transfer-amount" data-cy="transfer-amount-input">
+            </div>
+            <button class="button" data-cy="transfer-button">Transfer</button>
+        </div>
+
+        <div class="dashboard-section">
+            <h3>Account Settings</h3>
+            <div class="tabs">
+                <div class="tab active" data-tab="notifications">Notifications</div>
+                <div class="tab" data-tab="security">Security</div>
+            </div>
+            <div class="tab-content active" id="notifications">
+                <h4>Notification Preferences</h4>
+                <div>
+                    <input type="checkbox" id="email-notifications" data-cy="email-notifications-checkbox">
+                    <label for="email-notifications">Receive email notifications</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="sms-notifications" data-cy="sms-notifications-checkbox">
+                    <label for="sms-notifications">Receive SMS notifications</label>
+                </div>
+            </div>
+            <div class="tab-content" id="security">
+                <h4>Security Settings</h4>
+                <div>
+                    <input type="checkbox" id="two-factor" data-cy="two-factor-checkbox">
+                    <label for="two-factor">Enable two-factor authentication</label>
+                </div>
+                <div class="form-group">
+                    <label for="security-question">Security Question:</label>
+                    <select id="security-question" data-cy="security-question-select">
+                        <option value="">Select a security question</option>
+                        <option value="pet">What was the name of your first pet?</option>
+                        <option value="school">What was the name of your first school?</option>
+                        <option value="city">In which city were you born?</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="security-answer">Answer:</label>
+                    <input type="text" id="security-answer" data-cy="security-answer-input">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 EuroFinance. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab, .tab-content').forEach(el => el.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Transfer button functionality
+        document.querySelector('[data-cy="transfer-button"]').addEventListener('click', () => {
+            const amount = document.getElementById('transfer-amount').value;
+            const from = document.getElementById('transfer-from').value;
+            const to = document.getElementById('transfer-to').value;
+            alert(`Transfer of €${amount} from ${from} to ${to} initiated.`);
+        });
+    </script>
+</body>
+</html>
