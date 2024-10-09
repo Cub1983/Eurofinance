@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EuroFinance</title>
+    <link rel="stylesheet" href="shared-styles.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .auth-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .remember-me input {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Euro</span>Finance</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="calculator.html">Mortgage Calculator</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li class="current"><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-container">
+            <h2 id="auth-title">Login</h2>
+            <form id="login-form" data-cy="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email:</label>
+                    <input type="email" id="login-email" name="email" required data-cy="login-email-input">
+                    <span class="error" id="login-email-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required data-cy="login-password-input">
+                    <span class="error" id="login-password-error"></span>
+                </div>
+                <div class="remember-me">
+                    <input type="checkbox" id="remember-me" name="remember-me" data-cy="remember-me-checkbox">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <button type="submit" class="button" data-cy="login-submit">Login</button>
+            </form>
+            <form id="register-form" style="display:none;" data-cy="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name:</label>
+                    <input type="text" id="register-name" name="name" required data-cy="register-name-input">
+                    <span class="error" id="register-name-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="email" required data-cy="register-email-input">
+                    <span class="error" id="register-email-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="password" required data-cy="register-password-input">
+                    <span class="error" id="register-password-error"></span>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password:</label>
+                    <input type="password" id="register-confirm-password" name="confirm-password" required data-cy="register-confirm-password-input">
+                    <span class="error" id="register-confirm-password-error"></span>
+                </div>
+                <button type="submit" class="button" data-cy="register-submit">Register</button>
+            </form>
+            <div class="auth-toggle">
+                <a href="#" id="toggle-auth" data-cy="toggle-auth">Don't have an account? Register here</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 EuroFinance. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const toggleAuth = document.getElementById('toggle-auth');
+        const authTitle = document.getElementById('auth-title');
+
+        toggleAuth.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                authTitle.textContent = 'Login';
+                toggleAuth.textContent = "Don't have an account? Register here";
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+                authTitle.textContent = 'Register';
+                toggleAuth.textContent = 'Already have an account? Login here';
+            }
+        });
+        
+     const mockUsers = [
+            { email: 'test@example.com', password: 'password123' },
+            { email: 'john@example.com', password: 'securepass' },
+            { email: 'jane@example.com', password: 'testpass123' }
+        ];
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const email = document.getElementById('login-email');
+            const password = document.getElementById('login-password');
+
+            if (!email.value.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+                document.getElementById('login-email-error').textContent = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                document.getElementById('login-email-error').textContent = '';
+            }
+        
+            if (password.value.length < 8) {
+                document.getElementById('login-password-error').textContent = 'Password must be at least 8 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('login-password-error').textContent = '';
+            }
+        
+            if (isValid) {
+                const user = mockUsers.find(u => u.email === email.value && u.password === password.value);
+                if (user) {
+                    alert('Login successful!');
+                    window.location.href = 'account-dashboard.html';
+                } else {
+                    alert('Invalid email or password');
+                }
+            }
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('register-name');
+            const email = document.getElementById('register-email');
+            const password = document.getElementById('register-password');
+            const confirmPassword = document.getElementById('register-confirm-password');
+
+            if (name.value.length < 2) {
+                document.getElementById('register-name-error').textContent = 'Name must be at least 2 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('register-name-error').textContent = '';
+            }
+
+            if (!email.value.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+                document.getElementById('register-email-error').textContent = 'Please enter a valid email address';
+                isValid = false;
+            } else {
+                document.getElementById('register-email-error').textContent = '';
+            }
+
+            if (password.value.length < 8) {
+                document.getElementById('register-password-error').textContent = 'Password must be at least 8 characters long';
+                isValid = false;
+            } else {
+                document.getElementById('register-password-error').textContent = '';
+            }
+
+            if (password.value !== confirmPassword.value) {
+                document.getElementById('register-confirm-password-error').textContent = 'Passwords do not match';
+                isValid = false;
+            } else {
+                document.getElementById('register-confirm-password-error').textContent = '';
+            }
+
+            if (isValid) {
+                alert('Registration successful! Please log in.');
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+                authTitle.textContent = 'Login';
+                toggleAuth.textContent = "Don't have an account? Register here";
+            }
+        });
+    </script>
+</body>
+</html>
