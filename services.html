@@ -1,188 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Services - EuroFinance</title>
-    <link rel="stylesheet" href="shared-styles.css">
+    <link rel="stylesheet" href="shared-styles.css" />
+    <script defer src="script.js"></script>
     <style>
-        .service-card {
-            background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .service-icon {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 10px;
-        }
-        #services-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        #services-table th, #services-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        #services-table th {
-            background-color: var(--primary-color);
-            color: white;
-            cursor: pointer;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            margin: 0 5px;
-        }
-        #search-box {
-            margin-bottom: 20px;
-        }
+      .service-card {
+        background: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .service-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+      }
+      #services-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      #services-table th,
+      #services-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      #services-table th {
+        background-color: var(--primary-color);
+        color: white;
+        cursor: pointer;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .pagination button {
+        margin: 0 5px;
+      }
+      #search-box {
+        margin-bottom: 20px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div id="branding">
-                <h1><span class="highlight">Euro</span>Finance</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li class="current"><a href="services.html">Services</a></li>
-                    <li><a href="calculator.html">Mortgage Calculator</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
+      <div class="container">
+        <div id="branding">
+          <h1><span class="highlight">Euro</span>Finance</h1>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="current"><a href="services.html">Services</a></li>
+            <li><a href="calculator.html">Mortgage Calculator</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <div class="container">
-        <h2>Our Services</h2>
-        <div id="search-box">
-            <input type="text" id="search-input" placeholder="Search services..." data-cy="search-input">
-            <button id="search-button" data-cy="search-button">Search</button>
-        </div>
-        <table id="services-table" data-cy="services-table">
-            <thead>
-                <tr>
-                    <th data-sort="name" data-cy="sort-name">Service Name</th>
-                    <th data-sort="type" data-cy="sort-type">Type</th>
-                    <th data-sort="fee" data-cy="sort-fee">Annual Fee (€)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table body will be populated by JavaScript -->
-            </tbody>
-        </table>
-        <div class="pagination" id="pagination" data-cy="pagination">
-            <!-- Pagination buttons will be added here by JavaScript -->
-        </div>
+      <h2>Our Services</h2>
+      <div id="search-box">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search services..."
+          data-cy="search-input"
+        />
+        <button id="search-button" data-cy="search-button">Search</button>
+      </div>
+      <table id="services-table" data-cy="services-table">
+        <thead>
+          <tr>
+            <th data-sort="name" data-cy="sort-name">Service Name</th>
+            <th data-sort="type" data-cy="sort-type">Type</th>
+            <th data-sort="fee" data-cy="sort-fee">Annual Fee (€)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table body will be populated by JavaScript -->
+        </tbody>
+      </table>
+      <div class="pagination" id="pagination" data-cy="pagination">
+        <!-- Pagination buttons will be added here by JavaScript -->
+      </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 EuroFinance. All rights reserved.</p>
+      <p>&copy; 2024 EuroFinance. All rights reserved.</p>
     </footer>
 
     <script>
-        const services = [
-            { name: 'Basic Checking Account', type: 'Personal', fee: 0 },
-            { name: 'Premium Savings Account', type: 'Personal', fee: 50 },
-            { name: 'Student Account', type: 'Personal', fee: 0 },
-            { name: 'Business Checking', type: 'Business', fee: 100 },
-            { name: 'Business Savings', type: 'Business', fee: 75 },
-            { name: 'Merchant Services', type: 'Business', fee: 200 },
-            { name: 'Personal Loan', type: 'Loan', fee: 0 },
-            { name: 'Home Mortgage', type: 'Loan', fee: 0 },
-            { name: 'Auto Loan', type: 'Loan', fee: 0 },
-            { name: 'Investment Account', type: 'Investment', fee: 150 },
-            { name: 'Retirement Planning', type: 'Investment', fee: 100 },
-            { name: 'Wealth Management', type: 'Investment', fee: 500 }
-        ];
+      const services = [
+        { name: "Basic Checking Account", type: "Personal", fee: 0 },
+        { name: "Premium Savings Account", type: "Personal", fee: 50 },
+        { name: "Student Account", type: "Personal", fee: 0 },
+        { name: "Business Checking", type: "Business", fee: 100 },
+        { name: "Business Savings", type: "Business", fee: 75 },
+        { name: "Merchant Services", type: "Business", fee: 200 },
+        { name: "Personal Loan", type: "Loan", fee: 0 },
+        { name: "Home Mortgage", type: "Loan", fee: 0 },
+        { name: "Auto Loan", type: "Loan", fee: 0 },
+        { name: "Investment Account", type: "Investment", fee: 150 },
+        { name: "Retirement Planning", type: "Investment", fee: 100 },
+        { name: "Wealth Management", type: "Investment", fee: 500 },
+      ];
 
-        let currentPage = 1;
-        const itemsPerPage = 5;
-        let sortedServices = [...services];
+      let currentPage = 1;
+      const itemsPerPage = 5;
+      let sortedServices = [...services];
 
-        function displayServices(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const paginatedServices = sortedServices.slice(start, end);
+      function displayServices(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const paginatedServices = sortedServices.slice(start, end);
 
-            const tableBody = document.querySelector('#services-table tbody');
-            tableBody.innerHTML = '';
+        const tableBody = document.querySelector("#services-table tbody");
+        tableBody.innerHTML = "";
 
-            paginatedServices.forEach(service => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+        paginatedServices.forEach((service) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
                     <td>${service.name}</td>
                     <td>${service.type}</td>
                     <td>${service.fee}</td>
                 `;
-                tableBody.appendChild(row);
-            });
-
-            updatePagination();
-        }
-
-       function updatePagination() {
-            const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
-            const paginationElement = document.getElementById('pagination');
-            paginationElement.innerHTML = '';
-
-            for (let i = 1; i <= totalPages; i++) {
-                const button = document.createElement('button');
-                button.textContent = i;
-                button.addEventListener('click', () => {
-                    currentPage = i;
-                    displayServices(currentPage);
-                });
-                button.dataset.cy = `page-${i}`;
-                if (i === currentPage) {
-                    button.disabled = true;
-                }
-                paginationElement.appendChild(button);
-            }
-        }
-
-        function sortServices(column) {
-            sortedServices.sort((a, b) => {
-                if (a[column] < b[column]) return -1;
-                if (a[column] > b[column]) return 1;
-                return 0;
-            });
-            displayServices(currentPage);
-        }
-
-        document.querySelectorAll('#services-table th').forEach(th => {
-            th.addEventListener('click', () => {
-                const column = th.dataset.sort;
-                sortServices(column);
-            });
+          tableBody.appendChild(row);
         });
 
-        document.getElementById('search-button').addEventListener('click', () => {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            sortedServices = services.filter(service => 
-                service.name.toLowerCase().includes(searchTerm) ||
-                service.type.toLowerCase().includes(searchTerm)
-            );
-            currentPage = 1;
-            displayServices(currentPage);
-        });
+        updatePagination();
+      }
 
-        // Initial display
+      function updatePagination() {
+        const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
+        const paginationElement = document.getElementById("pagination");
+        paginationElement.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+          const button = document.createElement("button");
+          button.textContent = i;
+          button.addEventListener("click", () => {
+            currentPage = i;
+            displayServices(currentPage);
+          });
+          button.dataset.cy = `page-${i}`;
+          if (i === currentPage) {
+            button.disabled = true;
+          }
+          paginationElement.appendChild(button);
+        }
+      }
+
+      function sortServices(column) {
+        sortedServices.sort((a, b) => {
+          if (a[column] < b[column]) return -1;
+          if (a[column] > b[column]) return 1;
+          return 0;
+        });
         displayServices(currentPage);
+      }
+
+      document.querySelectorAll("#services-table th").forEach((th) => {
+        th.addEventListener("click", () => {
+          const column = th.dataset.sort;
+          sortServices(column);
+        });
+      });
+
+      document.getElementById("search-button").addEventListener("click", () => {
+        const searchTerm = document
+          .getElementById("search-input")
+          .value.toLowerCase();
+        sortedServices = services.filter(
+          (service) =>
+            service.name.toLowerCase().includes(searchTerm) ||
+            service.type.toLowerCase().includes(searchTerm)
+        );
+        currentPage = 1;
+        displayServices(currentPage);
+      });
+
+      // Initial display
+      displayServices(currentPage);
     </script>
-</body>
+  </body>
 </html>
 Last edited 4 minutes ago
-
-

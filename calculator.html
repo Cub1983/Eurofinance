@@ -1,124 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mortgage Calculator - EuroFinance</title>
-    <link rel="stylesheet" href="shared-styles.css">
+    <link rel="stylesheet" href="shared-styles.css" />
+    <script defer src="script.js"></script>
     <style>
-        #calculator {
-            background: #fff;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+      #calculator {
+        background: #fff;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
 
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-            background-color: var(--secondary-color);
-            padding: 15px;
-            border-radius: 5px;
-        }
+      #result {
+        margin-top: 20px;
+        font-weight: bold;
+        background-color: var(--secondary-color);
+        padding: 15px;
+        border-radius: 5px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div class="container">
-            <div id="branding">
-                <h1><span class="highlight">Euro</span>Finance</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li class="current"><a href="calculator.html">Mortgage Calculator</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
-            </nav>
+      <div class="container">
+        <div id="branding">
+          <h1><span class="highlight">Euro</span>Finance</h1>
         </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li class="current">
+              <a href="calculator.html">Mortgage Calculator</a>
+            </li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 
     <section id="calculator">
-        <div class="container">
-            <h2>Mortgage Calculator</h2>
-            <form id="mortgage-form">
-                <div class="form-group">
-                    <label for="loan-amount">Loan Amount (€):</label>
-                    <input type="text" id="loan-amount" required data-cy="loan-amount-input">
-                    <span class="error" id="loan-amount-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="interest-rate">Annual Interest Rate (%):</label>
-                    <input type="text" id="interest-rate" required data-cy="interest-rate-input">
-                    <span class="error" id="interest-rate-error"></span>
-                </div>
-                <div class="form-group">
-                    <label for="loan-term">Loan Term (years):</label>
-                    <input type="text" id="loan-term" required data-cy="loan-term-input">
-                    <span class="error" id="loan-term-error"></span>
-                </div>
-                <button type="submit" class="button" data-cy="calculate-button">Calculate</button>
-            </form>
-            <div id="result"></div>
-        </div>
+      <div class="container">
+        <h2>Mortgage Calculator</h2>
+        <form id="mortgage-form">
+          <div class="form-group">
+            <label for="loan-amount">Loan Amount (€):</label>
+            <input
+              type="text"
+              id="loan-amount"
+              required
+              data-cy="loan-amount-input"
+            />
+            <span class="error" id="loan-amount-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="interest-rate">Annual Interest Rate (%):</label>
+            <input
+              type="text"
+              id="interest-rate"
+              required
+              data-cy="interest-rate-input"
+            />
+            <span class="error" id="interest-rate-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="loan-term">Loan Term (years):</label>
+            <input
+              type="text"
+              id="loan-term"
+              required
+              data-cy="loan-term-input"
+            />
+            <span class="error" id="loan-term-error"></span>
+          </div>
+          <button type="submit" class="button" data-cy="calculate-button">
+            Calculate
+          </button>
+        </form>
+        <div id="result"></div>
+      </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 EuroFinance. All rights reserved.</p>
+      <p>&copy; 2024 EuroFinance. All rights reserved.</p>
     </footer>
 
     <script>
-        function validateNumber(value, min, max) {
-            const num = parseFloat(value);
-            return !isNaN(num) && num >= min && num <= max;
-        }
+      function validateNumber(value, min, max) {
+        const num = parseFloat(value);
+        return !isNaN(num) && num >= min && num <= max;
+      }
 
-        document.getElementById('mortgage-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            let isValid = true;
+      document
+        .getElementById("mortgage-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let isValid = true;
 
-            const loanAmount = document.getElementById('loan-amount').value;
-            const interestRate = document.getElementById('interest-rate').value;
-            const loanTerm = document.getElementById('loan-term').value;
+          const loanAmount = document.getElementById("loan-amount").value;
+          const interestRate = document.getElementById("interest-rate").value;
+          const loanTerm = document.getElementById("loan-term").value;
 
-            if (!validateNumber(loanAmount, 1000, 10000000)) {
-                document.getElementById('loan-amount-error').textContent = 'Please enter a valid loan amount between €1,000 and €10,000,000';
-                isValid = false;
-            } else {
-                document.getElementById('loan-amount-error').textContent = '';
-            }
+          if (!validateNumber(loanAmount, 1000, 10000000)) {
+            document.getElementById("loan-amount-error").textContent =
+              "Please enter a valid loan amount between €1,000 and €10,000,000";
+            isValid = false;
+          } else {
+            document.getElementById("loan-amount-error").textContent = "";
+          }
 
-            if (!validateNumber(interestRate, 0.1, 20)) {
-                document.getElementById('interest-rate-error').textContent = 'Please enter a valid interest rate between 0.1% and 20%';
-                isValid = false;
-            } else {
-                document.getElementById('interest-rate-error').textContent = '';
-            }
+          if (!validateNumber(interestRate, 0.1, 20)) {
+            document.getElementById("interest-rate-error").textContent =
+              "Please enter a valid interest rate between 0.1% and 20%";
+            isValid = false;
+          } else {
+            document.getElementById("interest-rate-error").textContent = "";
+          }
 
-            if (!validateNumber(loanTerm, 1, 40)) {
-                document.getElementById('loan-term-error').textContent = 'Please enter a valid loan term between 1 and 40 years';
-                isValid = false;
-            } else {
-                document.getElementById('loan-term-error').textContent = '';
-            }
+          if (!validateNumber(loanTerm, 1, 40)) {
+            document.getElementById("loan-term-error").textContent =
+              "Please enter a valid loan term between 1 and 40 years";
+            isValid = false;
+          } else {
+            document.getElementById("loan-term-error").textContent = "";
+          }
 
-            if (isValid) {
-                const monthlyRate = parseFloat(interestRate) / 100 / 12;
-                const totalPayments = parseFloat(loanTerm) * 12;
-                const monthlyPayment = (parseFloat(loanAmount) * monthlyRate * Math.pow(1 + monthlyRate, totalPayments)) / (Math.pow(1 + monthlyRate, totalPayments) - 1);
+          if (isValid) {
+            const monthlyRate = parseFloat(interestRate) / 100 / 12;
+            const totalPayments = parseFloat(loanTerm) * 12;
+            const monthlyPayment =
+              (parseFloat(loanAmount) *
+                monthlyRate *
+                Math.pow(1 + monthlyRate, totalPayments)) /
+              (Math.pow(1 + monthlyRate, totalPayments) - 1);
 
-                document.getElementById('result').innerHTML = `
+            document.getElementById("result").innerHTML = `
                     <h3>Mortgage Calculation Results:</h3>
                     <p>Monthly Payment: €${monthlyPayment.toFixed(2)}</p>
-                    <p>Total Payment: €${(monthlyPayment * totalPayments).toFixed(2)}</p>
-                    <p>Total Interest: €${((monthlyPayment * totalPayments) - parseFloat(loanAmount)).toFixed(2)}</p>
+                    <p>Total Payment: €${(
+                      monthlyPayment * totalPayments
+                    ).toFixed(2)}</p>
+                    <p>Total Interest: €${(
+                      monthlyPayment * totalPayments -
+                      parseFloat(loanAmount)
+                    ).toFixed(2)}</p>
                 `;
-            }
+          }
         });
     </script>
-</body>
+  </body>
 </html>
