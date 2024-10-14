@@ -21,5 +21,5 @@ function checkLoginState() {
   }
 }
 
-window.addEventListener("load", checkLoginState);
+window.addEventListener("load", checkLoginState());
 console.log("Script loaded and event listener added");
